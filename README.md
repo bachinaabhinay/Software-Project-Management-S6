@@ -8,6 +8,15 @@ Page For Team Caesar's Follow the page for futher about Project Information
 
 **Inventory management system** which is helpful for the business operators, where shopkeepers keep the records of purchase and sales. Mismanaged inventory means disappointed customers, too much cash tied up in slower sales and warehouses. This inventory is eliminated paper work, human faults, manual delay and speed up process. This inventory management system will have the ability to track sales and available inventory, tells a shopkeeper when it is time to reorder and how much to purchase.
 
+# User Stories
+* Sys Admin - Acceses to all information and updations
+* workers - they get their Job Card(Assigned work) and also get their status
+* stock kepers - they update or maintain the record of inventory(i.e., they update the statues when the Inventory or stock came or out)
+* Accountant - view the Flow or status of the the Inventory.
+* Manager Or Higher - they have to all access and updation all of records
+
+# Use case Diagram  
+
 # Rough Er Diagram
 ![image](https://user-images.githubusercontent.com/64905661/154217432-85dbc7e8-c132-4150-842c-041128ffaafe.png)
 
@@ -24,3 +33,8 @@ Page For Team Caesar's Follow the page for futher about Project Information
 * M Venkata Phaneedra - AM.EN.U4CSE193
 * P Teja V S Reddy - AM.EN.U4CSE19341 (Scrum Master)
 * S Sathwik Reddy - AM.EN.U4CSE19366
+
+# Meeting Minuites
+13 - feb -2022 1:30pm - 2:15am
+14 - feb -2022 8:00am - 8:30am
+16 - feb -2022 12:36pm - 12.50pm
