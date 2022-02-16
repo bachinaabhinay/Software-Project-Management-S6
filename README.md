@@ -1,7 +1,6 @@
 # TeamCaeser's
 Page For Team Caesar's Follow the page for futher about Project Information 
 
-
 # Project - Inventory Management System
 ![inventory-management-system](https://user-images.githubusercontent.com/64905661/153710221-411454b8-ca4a-4c47-b125-d7231c2857fa.png)
 ![inventory-management-software-500x500](https://user-images.githubusercontent.com/64905661/153710414-dff39402-e744-4ff6-a7f3-bc9d9d33d50c.png)
@@ -18,7 +17,7 @@ Page For Team Caesar's Follow the page for futher about Project Information
 # Use case Diagram  
 
 # Rough Er Diagram
-![image](https://user-images.githubusercontent.com/64905661/154217432-85dbc7e8-c132-4150-842c-041128ffaafe.png)
+![image](https://user-images.githubusercontent.com/64905661/154222803-f9e8365f-58d7-4091-a2fc-0584233260e6.png)
 
 **link for the Er diagram:**
 'https://lucid.app/lucidchart/f2a99d35-516d-4e8d-9f15-60e556a94b32/edit?invitationId=inv_701d791f-f1ea-470b-b597-64191ebe8784
