@@ -11,6 +11,9 @@ Page For Team Caesar's Follow the page for futher about Project Information
 # Rough Er Diagram
 ![image](https://user-images.githubusercontent.com/64905661/154217432-85dbc7e8-c132-4150-842c-041128ffaafe.png)
 
+link for the Er diagram:
+https://lucid.app/lucidchart/f2a99d35-516d-4e8d-9f15-60e556a94b32/edit?invitationId=inv_701d791f-f1ea-470b-b597-64191ebe8784
+
 ## Tech Stack
 * Java - Swing
 * PostgreSQL
