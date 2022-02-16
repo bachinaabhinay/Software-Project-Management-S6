@@ -8,6 +8,8 @@ Page For Team Caesar's Follow the page for futher about Project Information
 
 **Inventory management system** which is helpful for the business operators, where shopkeepers keep the records of purchase and sales. Mismanaged inventory means disappointed customers, too much cash tied up in slower sales and warehouses. This inventory is eliminated paper work, human faults, manual delay and speed up process. This inventory management system will have the ability to track sales and available inventory, tells a shopkeeper when it is time to reorder and how much to purchase.
 
+# Rough Er Diagram
+![image](https://user-images.githubusercontent.com/64905661/154216973-c04ce202-08a8-41e8-95cd-055773aa57fe.png)
 
 ## Tech Stack
 * Java - Swing
