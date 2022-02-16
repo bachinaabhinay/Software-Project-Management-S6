@@ -35,6 +35,6 @@ Page For Team Caesar's Follow the page for futher about Project Information
 * S Sathwik Reddy - AM.EN.U4CSE19366
 
 # Meeting Minuites
-13 - feb -2022 1:30pm - 2:15am
-14 - feb -2022 8:00am - 8:30am
-16 - feb -2022 12:36pm - 12.50pm
+* 13 - feb -2022 1:30pm - 2:15am
+* 14 - feb -2022 8:00am - 8:30am
+* 16 - feb -2022 12:36pm - 12.50pm
