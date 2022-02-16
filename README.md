@@ -10,17 +10,15 @@ Page For Team Caesar's Follow the page for futher about Project Information
 # User Stories
 * Sys Admin - Acceses to all information and updations
 * workers - they get their Job Card(Assigned work) and also get their status
-* stock kepers - they update or maintain the record of inventory(i.e., they update the statues when the Inventory or stock came or out)
+* stock keepers - they update or maintain the record of inventory(i.e., they update the statues when the Inventory or stock came or out)
 * Accountant - view the Flow or status of the the Inventory.
-* Manager Or Higher - they have to all access and updation all of records
+* Manager Or Higher - they have all the access and can update all records
 
 # Use case Diagram  
 
 # Rough Er Diagram
 ![image](https://user-images.githubusercontent.com/64905661/154222803-f9e8365f-58d7-4091-a2fc-0584233260e6.png)
 
-**link for the Er diagram:**
-'https://lucid.app/lucidchart/f2a99d35-516d-4e8d-9f15-60e556a94b32/edit?invitationId=inv_701d791f-f1ea-470b-b597-64191ebe8784
 
 ## Tech Stack
 * Java - Swing
