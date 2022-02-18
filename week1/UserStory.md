@@ -16,7 +16,6 @@
 
   As an admin,
 >* I want to create accounts or update of employees so they can utilise this application facilities their respective works.
->* I want to View employee acctivites.
 * **Worker**
 
 As a Worker,
