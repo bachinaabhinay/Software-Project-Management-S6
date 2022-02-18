@@ -19,7 +19,7 @@ we had 3 - meeting's in the week
 >> * We had come up with new functionalities to increase the scope of our application.
 >> * We had assigned the work among ourselves.
 >> * we cleared doubts with each others and having induvidal brain stroming session to come up new idea of doing project 
->> * <br>
+>> <br>
 > **status: Completed**<br>
 
 
