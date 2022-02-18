@@ -7,20 +7,6 @@ Page For Team Caesar's Follow the page for futher about Project Information
 
 **Inventory management system** which is helpful for the business operators, where shopkeepers keep the records of purchase and sales. Mismanaged inventory means disappointed customers, too much cash tied up in slower sales and warehouses. This inventory is eliminated paper work, human faults, manual delay and speed up process. This inventory management system will have the ability to track sales and available inventory, tells a shopkeeper when it is time to reorder and how much to purchase.
 
-# User Stories
-* Sys Admin - Acceses to all information and updations
-* workers - they get their Job Card(Assigned work) and also get their status
-* stock keepers - they update or maintain the record of inventory(i.e., they update the statues when the Inventory or stock came or out)
-* Accountant - view the Flow or status of the the Inventory.
-* Manager Or Higher - they have all the access and can update all records
-
-# Use case Diagram  
-![image](https://user-images.githubusercontent.com/64905661/154227399-22f6931d-e694-4586-9553-119f26d45808.png)
-
-# Rough Er Diagram
-![image](https://user-images.githubusercontent.com/64905661/154222803-f9e8365f-58d7-4091-a2fc-0584233260e6.png)
-
-
 ## Tech Stack
 * Java - Swing
 * PostgreSQL
