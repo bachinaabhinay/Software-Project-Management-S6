@@ -35,12 +35,15 @@ Attendees :
 
 P Teja, Abhinay(311), B Abhinay(311), S Sathwik Reddy(366)
 
-Agenda :Idea about class diagram and doubts clarifing
+Agenda :
+         Idea about class diagram and doubts clarifing
 Time Alocated : 30min
+
 **Platform :**Teams Meeting
+
 Discussion :
 we can discuss and check on finalized class diagram
 We had check by all team mates that everything is perfect to publish/not.
 We can satisfy with the class diagram.
 
-status: Class diagram is ready.
+*status: Class diagram is ready.
