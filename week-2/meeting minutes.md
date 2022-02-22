@@ -1,4 +1,4 @@
-**week2_1st Meeting:
+## week2_1st Meeting:
 
 Date : saturday, 19th Feb,2022
 Time : 10:00 to 10:30 PM
@@ -23,7 +23,7 @@ We can fix to meet once again.
 status: Use case diagram Completed and class diagram is roughly ready.
 
 
-**week2_2nd Meeting:
+## week2_2nd Meeting:
 Date : Tuesday, 22nd Feb,2022
 Time : 02:00 to 2:30 PM
 Location : virtual meet in pc
