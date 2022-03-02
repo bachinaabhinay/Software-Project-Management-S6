@@ -49,11 +49,11 @@ We can satisfy with the class diagram.
 *status: Class diagram is ready.
 
 ## week2 3rd meeting:
- **Date: 02-03-2022 Wednesday
- **Time: 2pm to 3pm
- **Location: Class Romm N-107 (Lab-hour)
+ **Date: 02-03-2022 Wednesday <br>
+ **Time: 2pm to 3pm <br>
+ **Location: Class Romm N-107 (Lab-hour) <br>
  
- **Attendees: Abhinay, Phani, SubbaReddy, Sathwik Reddy.
- **Agenda: Class Diagram Corrections
+ **Attendees: Abhinay, Phani, SubbaReddy, Sathwik Reddy.<br>
+ **Agenda: Class Diagram Corrections<br>
  ** Status: Verified and Completed.
  
