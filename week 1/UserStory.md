@@ -7,7 +7,6 @@
 ## **Users**
 * Worker
 * Stock keeper
-* Sales agent
 * Manger/Owner
 * Admin
 
@@ -30,12 +29,7 @@ As a Worker,
 >* I want to assign works to workers.
 >* I want to take or update orders.
 >* I want to view or report damage reports and add the taken actions on it.
-* **sales agent**
 
-As an sales agent,
->* I want to take and update orders.
->* I want to status of orders.
->* I want to view stock avability.
 * **Manger**
 
 As a Manger,
