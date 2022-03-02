@@ -14,8 +14,8 @@ Time Alocated : 30min
 **Platform :**skype
 Discussion :
 
-We have Detailed disscussion on class diagram and has plan to work on it.
+We had Detailed disscussion on class diagram and has plan to work on it.
 We had come up with new functionalities to increase the scope of our application.
-We can fix to meet once again.
+We fixed another time to meet again.
 
 status: Use case diagram Completed and class diagram is roughly ready.
