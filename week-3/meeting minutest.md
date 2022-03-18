@@ -19,7 +19,7 @@ We try to meet on 18/03/2022 once again in class room. <br>
 
 **status**: Meeting is successful
 
-# Week-3 Phase-2
+# Week-3 2nd meeting:
 
 **Date** : Thursday, 18th march,2022
 **Time** : 5:00 to 5:30 PM
