@@ -13,14 +13,14 @@ class admin:
             print("Error!", "All fields are required")
         else:
             try:
-                self.cur.execute("select * from login where username=%s and password=%s",
+                self.cur.execute("select * from login where userid=%s and password=%s",
                             (self.myuid, self.mypass))
                 row = self.cur.fetchone()
                 if row == None:
-                    print("Error!", "Invalid USERNAME & PASSWORD")
+                    print("Error!", "Invalid userid & PASSWORD")
                 else:
                     try:
-                        self.cur.execute("update login set password=%s where username=%s and seckey=%s",
+                        self.cur.execute("update login set password=%s where userid=%s and seckey=%s",
                                     (newpass, self.myuid, self.mypass))
                         print("password changed")
                     except Exception as er:
@@ -29,22 +29,31 @@ class admin:
                 print("Error!", f"{er}")
 
     def addusers(self):
-
-
-    def remove_user(self):
-        pass
-
-
+        name = input("Input name: ")
+        role = input("input role: ")
+        userid = input("Input new Userid: ")
+        password = input("Input password")
+        seckey = input("Input secert Key: ")
+        try:
+            self.cur.execute("INSERT INTO EMPLOYEE (name, role, userid) VALUES(%s,%s,%s)", (name,role,userid))
+            print("Values Inserted")
+        except Exception as er:
+            print("Error!", f"{er}")
+        try:
+            self.cur.execute("INSERT INTO login (userid, password, seckey) VALUES(%s,%s,%s)", (userid,password,seckey))
+            print("Values Inserted")
+        except Exception as er:
+            print("Error!", f"{er}")
 
 
 def main():
     connection = psycopg2.connect(host="localhost", user="postgres", password="root",
                                   database="inveMSys")
     cur = connection.cursor()
-    uname = input("Input UserNeme: ")
+    userid = input("Input Userid: ")
     upass = input("Input Password: ")
-    addcs = admin(cur,uname,upass)
-    addcs.updateMyPassword(input("newpassword: "))
+    addcs = admin(cur,userid,upass)
+    addcs.addusers()
     connection.commit()
     connection.close()
 
