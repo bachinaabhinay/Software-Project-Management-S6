@@ -39,4 +39,7 @@ Working on modfying class diagram.
 
 **status**: Meeting is successful
 ## Codding Started 
+## Status:
+**Based on our ER diagram for backend ,trying functions by subba reddy and Sathwik reddy** <br>
+**GUI are strted by me(Abhinay) and Phani that result in completion of Login page.**<br>
 
