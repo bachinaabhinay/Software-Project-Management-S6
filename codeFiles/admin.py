@@ -36,10 +36,6 @@ class admin:
         seckey = input("Input secert Key: ")
         try:
             self.cur.execute("INSERT INTO EMPLOYEE (name, role, userid) VALUES(%s,%s,%s)", (name,role,userid))
-            print("Values Inserted")
-        except Exception as er:
-            print("Error!", f"{er}")
-        try:
             self.cur.execute("INSERT INTO login (userid, password, seckey) VALUES(%s,%s,%s)", (userid,password,seckey))
             print("Values Inserted")
         except Exception as er:
