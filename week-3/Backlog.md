@@ -1,6 +1,11 @@
 # Team ceaser's:
-**>> Databases problems and working on more functionalities.** <br>
+**>> S Swathik Reddy**
+**>> problem**
+**>> Databases problems and working on more functionalities.** 
 **>> Query problems** <br>
+**>> P Teja V S Reddy**
+**>> Query problems**
 **>> Integration needed**<br>
-**>> some bugs during UI design where I and Phani(19311) overcome it**<br>
+**>> B Abhinay & M Phaneendra**
+**>> some bugs during UI design where I and Phani(19332) overcome it**<br>
 
