@@ -11,7 +11,7 @@ class admin:
         self.cur = self.connection.cursor()
         self.frame.title("Admin page")
         self.frame.geometry("1280x960")
-        self.frame.resizable(False, False)
+        self.frame.resizable(True, True)
         self.frame1 = Frame(self.frame, bg="white")
         self.frame1.place(x=0,y=0,height=80,width=1280)
         title = Label(self.frame1,text = "INVENTORY MANAGEMENT SYSTEM", font=("Oblique",20), bg="white")
