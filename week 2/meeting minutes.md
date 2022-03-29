@@ -8,8 +8,7 @@ Meeting Created By : B Abhinay
 Type of Meeting : Class diagram Discussion
 
 Attendees :
-
-P Teja, Abhinay(311), M V Phaneedra(332), S Sathwik Reddy(366)
+(P Teja, Abhinay(311), M V Phaneedra(332), S Sathwik Reddy(366).)
 
 Agenda :Idea about class diagram and doubts clarifing
 Time Alocated : 30min
