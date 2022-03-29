@@ -32,9 +32,9 @@ Working on database and functions.<br>
 
 ### week-4 General meet: <br>
 
-**Date** = 29th March 
-**Time**= 8 PM
->> Errors rectifying.
->>  Working on if any chance to add functions.
+**Date** = 29th March <br>
+**Time**= 8 PM <br>
+>> Errors rectifying. <br>
+>>  Working on if any chance to add functions. <br>
 
  
