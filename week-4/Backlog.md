@@ -7,6 +7,6 @@
 | Database    | Sathwik, Abhinay, Subba Reddy      | 25/03/2022 |  30/03/2022 | 97% completed |
 
 **-->Phani,Sathwik: Working on more functionalities and trying to get project more effective and attractive** <br>
-**-->Subba reddy: Alignment corrections are there in worker page and have to work on it** <br>
-**-->Phani: In Admin page there are some background UI work has completed in 24hrs** <br>
+**-->Subba reddy: there are Alignment corrections in worker page and have to work on it** <br>
+**-->Phani: In Admin page there are some background UI work will complete in 24hrs** <br>
 **-->sathwik: Trying that if any changes comes in Class Diagram**
