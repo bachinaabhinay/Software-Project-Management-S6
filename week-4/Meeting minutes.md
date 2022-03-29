@@ -29,4 +29,12 @@ Database is under process.<br>
 GUI completed for max classes and working on next classes.<br>
 Working on database and functions.<br>
 **status:** 70% of implementation is completed and working on Database & Functions. 
+
+### week-4 General meet: <br>
+
+**Date** = 29th March 
+**Time**= 8 PM
+>> Errors rectifying.
+>>  Working on if any chance to add functions.
+
  
