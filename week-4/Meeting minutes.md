@@ -10,7 +10,7 @@
 **Time:** we discuss for 1hr<br>
 **Platform :** In hostel's <br>
 **Discussion** :
-25% GUI implementation and working on functions.<br>
+GUI implementation and working on functions.<br>
 Database is under process.<br>
 **status:** implementation is going on and working on Database & Functions. 
 
@@ -26,7 +26,7 @@ Database is under process.<br>
 **Time:** we discuss for 1hr<br>
 **Platform :** In hostel's <br>
 **Discussion** :
-GUI completed for some classes and working on next classes.<br>
+GUI completed for max classes and working on next classes.<br>
 Working on database and functions.<br>
-**status:** 50% of implementation is completed and working on Database & Functions. 
+**status:** 70% of implementation is completed and working on Database & Functions. 
  
