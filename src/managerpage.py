@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import psycopg2
 
-class admin:
+class manager:
     def __init__(self,root,myuid,mypass):
         self.myuid = myuid
         self.mypass = mypass
@@ -205,7 +205,7 @@ class admin:
 
 def main(uid,passd):
     root = Tk()
-    obj = admin(root,uid,passd)
+    obj = manager(root,uid,passd)
     root.mainloop()
 
 main('wok001',123456)
