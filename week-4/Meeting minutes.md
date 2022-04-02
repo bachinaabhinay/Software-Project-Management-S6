@@ -33,19 +33,19 @@ Working on database and functions.<br>
 
 ### week-4 3rd Meeting: <br>
 
-**Date** : sunday, 27th march,2022 <br>
-**Time** : 11:00 to 12:00 PM<br>
-**Location** : Hostels <br>
-**Type of Meeting** : Designing<br>
+**Date** : Thursday, 31th march,2022 <br>
+**Time** : 4:00 to 4:30 PM<br>
+**Location** : Campus <br>
+**Type of Meeting** : Code review on individul work<br>
 **Attendees** : All Group members <br>
 P Teja, Abhinay(311), M V Phaneedra(332), S Sathwik Reddy(366), <br>
-**Agenda** : GUI designing, database & seeing if any changes in Class diagram.<br>
-**Time:** we discuss for 1hr<br>
-**Platform :** In hostel's <br>
-**status:** 50% of implementation is completed and working on Database & Functions. 
+**Agenda** : Check and evaluate each other codding part and rectifying errors.<br>
+**Time:** we discuss for 30 min<br>
+**Platform :** class room <br>
 **Discussion** :
 Review each other on their work.<br>
-Discussion on errors and quality in Codding.
+Discussion on errors and quality in Codding. <br>
+rectifying errors and try to build quality code. <br>
 **status:** All UI part is completed only thing balance is Merging. 
  
 
