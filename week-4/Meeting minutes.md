@@ -31,11 +31,37 @@ Working on database and functions.<br>
 **status:** 70% of implementation is completed and working on Database & Functions. 
 
 
-### week-4 General meet: <br>
+### week-4 3rd Meeting: <br>
+### Week-4 1st meeting.
+**Date** : sunday, 27th march,2022 <br>
+**Time** : 11:00 to 12:00 PM<br>
+**Location** : Hostels <br>
+**Type of Meeting** : Designing<br>
+**Attendees** : All Group members <br>
+P Teja, Abhinay(311), M V Phaneedra(332), S Sathwik Reddy(366), <br>
+**Agenda** : GUI designing, database & seeing if any changes in Class diagram.<br>
+**Time:** we discuss for 1hr<br>
+**Platform :** In hostel's <br>
+**Discussion** :
+25% GUI implementation and working on functions.<br>
+Database is under process.<br>
+**status:** 50% of implementation is completed and working on Database & Functions. 
 
-**Date** = 29th March <br>
-**Time**= 8 PM <br>
->> Errors rectifying. <br>
->>  Working on if any chance to add functions. <br>
+### Week-4 2nd meeting: <br>
+
+**Date** : Monday, 30th march,2022 <br>
+**Time** : 4:00 to 04:30 pm <br>
+**Location** : college <br>
+**Type of Meeting** : Individual Work Updation.<br>
+**Attendees** : All Group members<br>
+P Teja, Abhinay(311), M V Phaneedra(332), S Sathwik Reddy(366).<br>
+**Agenda** : Try to complete Codding.<br>
+**Time:** we discuss for 30 Min.<br>
+**Platform :** Class room <br>
+**Discussion** :
+Review each other on their work.<br>
+Discussion on errors and quality in Codding.
+**status:** All UI part is completed only thing balance is Merging. 
+ 
 
  
