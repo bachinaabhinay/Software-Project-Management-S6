@@ -24,7 +24,7 @@ As a Worker,
 * **stock keepers**
 
   As an Stock keeper,
->* I want to Record the In & out of stock.
+>* I want to Record the In of stock.
 >* I want to view Stock avability.
 >* I want to assign works to workers.
 >* I want to take or update orders.
