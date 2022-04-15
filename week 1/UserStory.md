@@ -33,9 +33,8 @@ As a Worker,
 * **Manger**
 
 As a Manger,
->* I want to create accounts or update to register employes.
 >* I want to view workers activies and statues.
 >* I want to view Stock availability
->* I want to update the stock.
+>* I want to update the Inventory.
 >* I want to generate reports on stock.
 >* I want to get damage reports and their statuses.
