@@ -163,7 +163,7 @@ class stockkeeper:
                 else:
                     self.cur.execute(
                         "INSERT INTO DAMAGEREPORT (REPORT_ID, REP_BY, REP_DESC,REP_DATE) VALUES(%s,%s,%s,%s)",
-                        (self.repid.get(), self.myuid, self.repdesp.get(1.0, END), x))
+                        (self.repid.get(), self.myuid, self.repdesp.get(1.0, END), x_date))
                     messagebox.showinfo("Inserstion Sucess", "Sucess, Damage is reported")
                     self.connection.commit()
             except Exception as er:
@@ -195,7 +195,7 @@ class stockkeeper:
         viewtree.column("report_id", width=100, anchor=CENTER)
         viewtree.column("rep_desc", width=550, anchor=CENTER)
         viewtree.column('rep_date', width=120, anchor=CENTER)
-        viewtree.pack(pady=30)
+        viewtree.pack(pady=70)
         try:
             self.cur.execute(
                 "select report_id, rep_desc, rep_date from damagereport where rep_by='{}' order by rep_date ASC".format(
@@ -211,8 +211,8 @@ class stockkeeper:
         style = ttk.Style()
         style.theme_use("default")
         style.map("viewtree")
-        viewtree.pack(padx=10, pady=10)
-        
+
+
     def updatepastrepui(self):
         self.clearwindow()
         title = Label(self.frame3, text="Edit Past damage Reported", font=("Oblique", 20), bg="white")
@@ -264,7 +264,41 @@ class stockkeeper:
                 print("Error!", f"{er}")
 
     def acttakrep(self):
-        pass
+        self.clearwindow()
+        title = Label(self.frame3, text="Take action", font=("Oblique", 20), bg="white")
+        title.place(x=10, y=2)
+        title2 = Label(self.frame3,text="Add action taken for incomplete damages",font=("Oblique", 12), bg="white")
+        title2.place(x=10,y=40)
+        title3 = Label(self.frame3,text="Reports, needed Add action taken",font=("Oblique", 12), bg="white")
+        title3.place(x=10,y=70)
+        row = []
+        columns = ('report_id', 'rep_desc', 'rep_date')
+        viewtree = ttk.Treeview(self.frame3, columns=columns, show='headings', height=10)
+        viewtree.heading('report_id', text='Report Id')
+        viewtree.heading('rep_desc', text='Report Descrption')
+        viewtree.heading('rep_date', text='Reported Date')
+
+        viewtree.column("report_id", width=100, anchor=CENTER)
+        viewtree.column("rep_desc", width=550, anchor=CENTER)
+        viewtree.column('rep_date', width=120, anchor=CENTER)
+        viewtree.pack(pady=30)
+        try:
+            self.cur.execute(
+                "select * from damagereport where act_taken_by is null Order by report_id ASC".format(
+                    self.myuid))
+            row = self.cur.fetchall()
+            if row == []:
+                messagebox.showinfo("No Report", "No Damages Reported")
+        except Exception as er:
+            print("Error!", f"{er}")
+        for val in row:
+            viewtree.insert(parent='', index='end', text='', values=(val[0], val[1], val[2]))
+        # style
+        style = ttk.Style()
+        style.theme_use("default")
+        style.map("viewtree")
+        viewtree.grid(padx=10,pady=110)
+
 
     def deletepastreport(self):
         self.clearwindow()
