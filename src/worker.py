@@ -5,8 +5,6 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 import tkinter as tk
-from datetime import date
-import os
 
 
 class worker:
@@ -77,7 +75,7 @@ class worker:
             self.cur.execute(
                 "select jobid, workdesc, status, assignby, assigndate from jobcard where assignto='{}'".format(self.myuid))
             row = self.cur.fetchall()
-            if row == None:
+            if row == []:
                 messagebox.showinfo("No Work", "No assigned work")
         except Exception as er:
             print("Error!", f"{er}")
@@ -114,7 +112,7 @@ class worker:
             try:
                 self.cur.execute("select * from jobcard where assignto=%s and jobid=%s",(self.myuid, self.jobid.get()))
                 row = self.cur.fetchone()
-                if row == None:
+                if row == []:
                     messagebox.showinfo("No Work", "Invalid id")
                     frame4.destroy()
                 elif 'completed' in row:
@@ -146,6 +144,93 @@ class worker:
         except Exception as er:
             print("Error!", f"{er}")
 
+    def updatepastrepui(self):
+        self.clearwindow()
+        title = Label(self.frame3, text="Edit Past damage Reported", font=("Oblique", 20), bg="white")
+        title.place(x=10, y=2)
+        lb_user = Label(self.frame3, text="Enter report Id", font=("Goudy old Style", 15), bg="white").place(x=10, y=70)
+        self.drepid = Entry(self.frame3, font=("times new roman", 12), bg="white")
+        self.drepid.place(x=170, y=75)
+        drepidbu = Button(self.frame3, command=self.checkDamid, text="Check")
+        drepidbu.place(x=370, y=70)
+
+
+    def checkDamid(self):
+        if self.drepid.get()=='':
+            messagebox.showerror('No Value', "Report Id Field Not Empty")
+        else:
+            try:
+                self.cur.execute("select report_id, rep_by from damagereport where report_id=%s and rep_by=%s", (self.drepid.get(), self.myuid))
+                row = self.cur.fetchall()
+                if row == []:
+                    messagebox.showinfo("No Damage Reported", "No Damage reported for Given id")
+                else:
+                    messagebox.showinfo('ID Present', "Given Id present click ok to update description")
+                    l_repdesp = Label(self.frame3, text="Update Description", font=("Goudy old Style", 15), bg="white").place(x=10,y=115)
+                    self.repdesp = Text(self.frame3, font=("times new roman", 12), bg="white")
+                    self.repdesp.place(x=10, y=150, width=450, height=270)
+                    upbutton = Button(self.frame3,text="Save",command=self.upd_rep)
+                    upbutton.place(x=10,y=450)
+                    clearbut = Button(self.frame3,text='Clear Field', command=self.repdesp.delete(1.0,END)).place(x=70,y=450)
+            except Exception as er:
+                print("Error!", f"{er}")
+
+    def upd_rep(self):
+        x = str(datetime.datetime.now())
+        date_time_obj = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S.%f')
+        x_date = date_time_obj.date()
+
+        textval = self.repdesp.get(1.0,END)
+        drepid = self.drepid.get()
+        myid = self.myuid
+        if textval==None:
+            messagebox.showerror('No Value', "Descrption Field Not to be Empty")
+        else:
+            try:
+                self.cur.execute("update damagereport set rep_desc=%s, rep_date=%s where report_id=%s and rep_by=%s", (textval,x_date,drepid,myid))
+                self.connection.commit()
+                messagebox.showinfo('Sucess', "Report updation sucess")
+            except Exception as er:
+                print("Error!", f"{er}")
+
+    def deletepastreport(self):
+        self.clearwindow()
+        title = Label(self.frame3, text="Delete damage Reported", font=("Oblique", 20), bg="white")
+        title.place(x=10, y=2)
+        lb_user = Label(self.frame3, text="Enter report Id", font=("Goudy old Style", 15), bg="white").place(x=10, y=70)
+        self.drepid = Entry(self.frame3, font=("times new roman", 12), bg="white")
+        self.drepid.place(x=170, y=75)
+        drepidbu = Button(self.frame3, command=self.delcheckdam, text="Check")
+        drepidbu.place(x=370, y=70)
+
+
+
+    def delcheckdam(self):
+        if self.drepid.get()=='':
+            messagebox.showerror('No Value', "Report Id Field Not Empty")
+        else:
+            try:
+                self.cur.execute("select report_id, rep_by from damagereport where report_id=%s and rep_by=%s", (self.drepid.get(), self.myuid))
+                row = self.cur.fetchall()
+
+                if row == []:
+                    messagebox.showinfo("No Damage Reported", "No Damage reported for Given id")
+                else:
+                    messagebox.showinfo('ID Present', "Given Id present click ok to delete description report")
+                    try:
+                        self.cur.execute("Delete from damagereport where report_id=%s and rep_by=%s",(self.drepid.get(), self.myuid))
+                        self.connection.commit()
+                        messagebox.showinfo('Deletion Sucess', 'Reported Deleted sucess')
+                    except Exception as er:
+                        print("Error!", f"{er}")
+            except Exception as er:
+                print("Error!", f"{er}")
+
+    def logout(self):
+        self.connection.close()
+        quit(worker)
+
+
     def reportDamui(self):
         self.clearwindow()
         title = Label(self.frame3, text="Report Damage", font=("Oblique", 20), bg="white")
@@ -165,7 +250,9 @@ class worker:
         cancel.place(x=80, y=410)
 
     def reportDam(self):
-        x=datetime.datetime.now()
+        x = str(datetime.datetime.now())
+        date_time_obj = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S.%f')
+        x_date = date_time_obj.date()
         self.repdesp.get(1.0,END)
         if self.repdesp.get(1.0,END)=="" or self.repid.get()=="":
             messagebox.showerror("Error!", "All fields are required")
@@ -173,11 +260,11 @@ class worker:
             try:
                 self.cur.execute("select * from damagereport where report_id=%s", (self.repid.get()))
                 row = self.cur.fetchone()
-                if row != None:
+                if row != None :
                     messagebox.showerror("Error!", "Id Already assigned\nGive new Report id")
                 else:
                     self.cur.execute("INSERT INTO DAMAGEREPORT (REPORT_ID, REP_BY, REP_DESC,REP_DATE) VALUES(%s,%s,%s,%s)",
-                                     (self.repid.get(), self.myuid, self.repdesp.get(1.0,END),x.strftime("%x")))
+                                     (self.repid.get(), self.myuid, self.repdesp.get(1.0,END),x))
                     messagebox.showinfo("Inserstion Sucess", "Sucess, Damage is reported")
                     self.connection.commit()
             except Exception as er:
@@ -213,7 +300,7 @@ class worker:
             self.cur.execute(
                 "select report_id, rep_desc, rep_date from damagereport where rep_by='{}' order by rep_date ASC".format(self.myuid))
             row = self.cur.fetchall()
-            if row == None:
+            if row == []:
                 messagebox.showinfo("No Report", "No Damages Reported")
         except Exception as er:
             print("Error!", f"{er}")
@@ -224,91 +311,6 @@ class worker:
         style.theme_use("default")
         style.map("viewtree")
         viewtree.pack(padx=10,pady=10)
-
-
-    def updatepastrepui(self):
-        self.clearwindow()
-        title = Label(self.frame3, text="Edit Past damage Reported", font=("Oblique", 20), bg="white")
-        title.place(x=10, y=2)
-        lb_user = Label(self.frame3, text="Enter report Id", font=("Goudy old Style", 15), bg="white").place(x=10, y=70)
-        self.drepid = Entry(self.frame3, font=("times new roman", 12), bg="white")
-        self.drepid.place(x=170, y=75)
-        drepidbu = Button(self.frame3, command=self.checkDamid, text="Check")
-        drepidbu.place(x=370, y=70)
-
-    def checkDamid(self):
-        if self.drepid.get()=='':
-            messagebox.showerror('No Value', "Report Id Field Not Empty")
-        else:
-            try:
-                messagebox.showinfo('ID Present',"Given Id present click ok to update description")
-                self.cur.execute("select report_id, rep_by from damagereport where report_id=%s and rep_by=%s", (self.drepid.get(), self.myuid))
-                row = self.cur.fetchall()
-                if row == None:
-                    messagebox.showinfo("No Damage Reported", "No Damage reported for Given id")
-                else:
-                    l_repdesp = Label(self.frame3, text="Update Description", font=("Goudy old Style", 15), bg="white").place(x=10,y=115)
-                    self.repdesp = Text(self.frame3, font=("times new roman", 12), bg="white")
-                    self.repdesp.place(x=10, y=150, width=450, height=270)
-                    upbutton = Button(self.frame3,text="Save",command=self.upd_rep).place(x=10,y=450)
-                    clearbut = Button(self.frame3,text='Clear Field', command=self.repdesp.delete(1.0,END)).place(x=70,y=450)
-            except Exception as er:
-                print("Error!", f"{er}")
-
-    def upd_rep(self):
-        x = str(datetime.datetime.now())
-        date_time_obj = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S.%f')
-        x_date = date_time_obj.date()
-
-        textval = self.repdesp.get(1.0,END)
-        drepid = self.drepid.get()
-        myid = self.myuid
-        if textval==None:
-            messagebox.showerror('No Value', "Descrption Field Not to be Empty")
-        else:
-            try:
-                self.cur.execute("update damagereport set rep_desc=%s, rep_date=%s where report_id=%s and rep_by=%s", (textval,x_date,drepid,myid))
-                self.connection.commit()
-                messagebox.showinfo('Sucess', "Report updation sucess")
-            except Exception as er:
-                print("Error!", f"{er}")
-
-
-
-    def deletepastreport(self):
-        self.clearwindow()
-        title = Label(self.frame3, text="Edit Past damage Reported", font=("Oblique", 20), bg="white")
-        title.place(x=10, y=2)
-        lb_user = Label(self.frame3, text="Enter report Id", font=("Goudy old Style", 15), bg="white").place(x=10, y=70)
-        self.drepid = Entry(self.frame3, font=("times new roman", 12), bg="white")
-        self.drepid.place(x=170, y=75)
-        drepidbu = Button(self.frame3, command=self.delcheckdam, text="Check")
-        drepidbu.place(x=370, y=70)
-
-    def delcheckdam(self):
-        if self.drepid.get()=='':
-            messagebox.showerror('No Value', "Report Id Field Not Empty")
-        else:
-            try:
-                messagebox.showinfo('ID Present',"Given Id present click ok to delete description report")
-                self.cur.execute("select report_id, rep_by from damagereport where report_id=%s and rep_by=%s", (self.drepid.get(), self.myuid))
-                row = self.cur.fetchall()
-                if row == None:
-                    messagebox.showinfo("No Damage Reported", "No Damage reported for Given id")
-                else:
-                    try:
-                        self.cur.execute("Delete from damagereport where report_id=%s and rep_by=%s",(self.drepid.get(), self.myuid))
-                        self.connection.commit()
-                        messagebox.showinfo('Deletion Sucess', 'Reported Deleted sucess')
-                    except Exception as er:
-                        print("Error!", f"{er}")
-            except Exception as er:
-                print("Error!", f"{er}")
-
-
-    def logout(self):
-        self.connection.close()
-        quit(worker)
 
     def changemypasswordui(self):
         self.clearwindow()
