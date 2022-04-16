@@ -11,7 +11,7 @@ class admin:
         self.cur = self.connection.cursor()
         self.frame.title("Admin page")
         self.frame.geometry("1280x960")
-        self.frame.resizable(True, True)
+        self.frame.resizable(False, False)
         self.frame1 = Frame(self.frame, bg="white")
         self.frame1.place(x=0,y=0,height=80,width=1280)
         title = Label(self.frame1,text = "INVENTORY MANAGEMENT SYSTEM", font=("Oblique",20), bg="white")
@@ -26,12 +26,62 @@ class admin:
         add_user_button.place(x=20,y=60,height=50,width=160)
         update_user_button = Button(self.frame2, command=self.updateuserui, text="Update User", bg="white", font=(40))
         update_user_button.place(x=20, y=120, height=50, width=160)
+        delete_user_button = Button(self.frame2, command=self.deleteuserui, text="Delete User", bg="white", font=(40))
+        delete_user_button.place(x=20, y=180, height=50, width=160)
         change_password_button = Button(self.frame2, command=self.changemypasswordui, text="change my password", bg="white")
         change_password_button.place(x=20, y=800, height=50, width=160)
         self.frame3 = Frame(self.frame, bg="white")
         self.frame3.place(x=210, y=82, height=878, width=1070)
         title = Label(self.frame3, text="Welcome, Admin", font=("Oblique", 20), bg="white")
         title.place(x=10, y=2)
+
+    def deleteuserui(self):
+        self.clearwindow()
+        title = Label(self.frame3, text="delete User", font=("Oblique", 20), bg="white")
+        title.place(x=10, y=2)
+        title = Label(self.frame3, text="Enter user id to delete user ", font=("times new roman", 12),bg="white")
+        title.place(x=10, y=40)
+        lb_user = Label(self.frame3, text="User ID", font=("Goudy old Style", 15), bg="white").place(x=10, y=80)
+        self.txt_userid1 = Entry(self.frame3, font=("times new roman", 12), bg="white")
+        self.txt_userid1.place(x=130, y=85)
+        proceed = Button(self.frame3, command=self.deleteuser, text="check", bg="white", font=("times new roman", 13))
+        proceed.place(x=325, y=78)
+
+    def deleteuser(self):
+        if self.txt_userid1.get() == None:
+            messagebox.showerror('empty',"All Field required")
+        else:
+            try:
+                self.cur.execute("select * from employee Where userid = '{}'".format(self.txt_userid1.get()))
+                row = self.cur.fetchone()
+                if row==None:
+                    messagebox.showinfo('No User',"No user is avaliable for given id")
+                else:
+                    l_jobid = Label(self.frame3, text="User Id :\t" + f"{row[1]}", font=("times new roman", 14), bg="white")
+                    l_jobid.place(x=10, y=120)
+                    l_assignby = Label(self.frame3, text="Name :\t" + f"{row[0]}", font=("times new roman", 14), bg="white")
+                    l_assignby.place(x=10, y=150)
+                    l_assigndate = Label(self.frame3, text="Role :\t" + f"{row[2]}", font=("times new roman", 14), bg="white")
+                    l_assigndate.place(x=10, y=180)
+                    clear = Button(self.frame3, command=self.deleteuserquer, text="Delete", font=(12))
+                    clear.place(x=110, y=220)
+                    back = clear = Button(self.frame3, command=self.deleteuserui, text="Back", font=(12))
+                    back.place(x=10, y=220)
+            except Exception as er:
+                messagebox.showerror("Error!", f"{er}", parent=self.frame)
+
+    def deleteuserquer(self):
+        askmesg = messagebox.askokcancel(title='Confirmation', message='Are you sure that delete user')
+        if askmesg:
+            try:
+                self.cur.execute("delete from login where userid='{}'".format(self.txt_userid1.get()))
+                self.cur.execute("delete from employee where userid='{}'".format(self.txt_userid1.get()))
+                self.connection.commit()
+                messagebox.showinfo('Removed', "User Removed")
+            except Exception as er:
+                messagebox.showerror("Error!", f"{er}", parent=self.frame)
+        else:
+            messagebox.showinfo('deletion Cancelled', "User Deletion cancelled")
 
     def logout(self):
         self.connection.close()
@@ -77,7 +127,7 @@ class admin:
         clear.place(x=10, y=230)
         save = Button(self.frame3, command=self.adduser, text="Save", bg="white", font=("times new roman", 13))
         save.place(x=80, y=230)
-        cancel = Button(self.frame3, command=self.clearwindow, text="Cancel", bg="white", font=("times new roman", 13))
+        cancel = Button(self.frame3, command=self.addusersui, text="Cancel", bg="white", font=("times new roman", 13))
         cancel.place(x=145,y=230)
 
     def adduser(self):
@@ -136,7 +186,7 @@ class admin:
                 clear.place(x=10, y=260)
                 save = Button(self.frame3, command=self.updateuser, text="Save", bg="white", font=("times new roman", 13))
                 save.place(x=80, y=260)
-                cancel = Button(self.frame3, command=self.clearwindow, text="Cancel", bg="white",
+                cancel = Button(self.frame3, command=self.updateuserui, text="Cancel", bg="white",
                                 font=("times new roman", 13))
                 cancel.place(x=145, y=260)
 
@@ -207,3 +257,5 @@ def main(uid,passd):
     root = Tk()
     obj = admin(root,uid,passd)
     root.mainloop()
+
+main("adm001","adm111")
