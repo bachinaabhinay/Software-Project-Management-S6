@@ -64,24 +64,18 @@ class admin:
                     l_assigndate = Label(self.frame3, text="Role :\t" + f"{row[2]}", font=("times new roman", 14), bg="white")
                     l_assigndate.place(x=10, y=180)
                     clear = Button(self.frame3, command=self.deleteuserquer, text="Delete", font=(12))
-                    clear.place(x=110, y=220)
-                    back = clear = Button(self.frame3, command=self.deleteuserui, text="Back", font=(12))
-                    back.place(x=10, y=220)
+                    clear.place(x=10, y=220)
             except Exception as er:
                 messagebox.showerror("Error!", f"{er}", parent=self.frame)
 
     def deleteuserquer(self):
-        askmesg = messagebox.askokcancel(title='Confirmation', message='Are you sure that delete user')
-        if askmesg:
-            try:
-                self.cur.execute("delete from login where userid='{}'".format(self.txt_userid1.get()))
-                self.cur.execute("delete from employee where userid='{}'".format(self.txt_userid1.get()))
-                self.connection.commit()
-                messagebox.showinfo('Removed', "User Removed")
-            except Exception as er:
-                messagebox.showerror("Error!", f"{er}", parent=self.frame)
-        else:
-            messagebox.showinfo('deletion Cancelled', "User Deletion cancelled")
+        try:
+            self.cur.execute("delete from login where userid='{}'".format(self.txt_userid1.get()))
+            self.cur.execute("delete from employee where userid='{}'".format(self.txt_userid1.get()))
+            self.connection.commit()
+            messagebox.showinfo('Removed', "User Removed")
+        except Exception as er:
+            messagebox.showerror("Error!", f"{er}", parent=self.frame)
 
     def logout(self):
         self.connection.close()
@@ -127,7 +121,7 @@ class admin:
         clear.place(x=10, y=230)
         save = Button(self.frame3, command=self.adduser, text="Save", bg="white", font=("times new roman", 13))
         save.place(x=80, y=230)
-        cancel = Button(self.frame3, command=self.addusersui, text="Cancel", bg="white", font=("times new roman", 13))
+        cancel = Button(self.frame3, command=self.clearwindow, text="Cancel", bg="white", font=("times new roman", 13))
         cancel.place(x=145,y=230)
 
     def adduser(self):
@@ -186,7 +180,7 @@ class admin:
                 clear.place(x=10, y=260)
                 save = Button(self.frame3, command=self.updateuser, text="Save", bg="white", font=("times new roman", 13))
                 save.place(x=80, y=260)
-                cancel = Button(self.frame3, command=self.updateuserui, text="Cancel", bg="white",
+                cancel = Button(self.frame3, command=self.clearwindow, text="Cancel", bg="white",
                                 font=("times new roman", 13))
                 cancel.place(x=145, y=260)
 
@@ -258,4 +252,4 @@ def main(uid,passd):
     obj = admin(root,uid,passd)
     root.mainloop()
 
-main("adm001","adm111")
+main("stoc001","0001")
