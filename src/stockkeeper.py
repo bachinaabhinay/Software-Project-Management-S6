@@ -58,7 +58,7 @@ class stockkeeper:
         view_assign_but.place(x=20, y=60, height=50, width=160)
         active_but = Button(self.frame3, command=self.viewactivework, text="View Active works")
         active_but.place(x=210, y=60, height=50, width=160)
-        assignwork_but = Button(self.frame3, command=self.assignnewwork, text="Assign Work")
+        assignwork_but = Button(self.frame3, command=self.assignnewworkui, text="Assign Work")
         assignwork_but.place(x=120, y=130, height=50, width=160)
 
     def viewassignworkui(self):
@@ -67,8 +67,53 @@ class stockkeeper:
     def viewactivework(self):
         pass
 
-    def assignnewwork(self):
-        pass
+    def assignnewworkui(self):
+        self.clearwindow()
+        self.clearwindow()
+        title = Label(self.frame3, text="Assign Work", font=("Oblique", 20), bg="white")
+        title.place(x=10, y=2)
+        l_repid = Label(self.frame3, text="New Job Id", font=("Goudy old Style", 15), bg="white").place(x=10, y=50)
+        self.jbid = Entry(self.frame3, font=("times new roman", 12), bg="white")
+        self.jbid.place(x=210, y=55)
+        l_repid = Label(self.frame3, text="Worker Id", font=("Goudy old Style", 15), bg="white").place(x=10, y=80)
+        self.wkid = Entry(self.frame3, font=("times new roman", 12), bg="white")
+        self.wkid.place(x=210, y=85)
+
+        l_repdesp = Label(self.frame3, text="Work Description", font=("Goudy old Style", 15), bg="white").place(x=10, y=110)
+        self.assdesp = Text(self.frame3, font=("times new roman", 12), bg="white")
+        self.assdesp.place(x=10, y=145, width=450, height=270)
+
+        save = Button(self.frame3, command=self.assignnework, text="Save", bg="white", font=("times new roman", 13))
+        save.place(x=10, y=450)
+        cancel = Button(self.frame3, command=self.assignworkui, text="Cancel", bg="white",
+                        font=("times new roman", 13))
+        cancel.place(x=80, y=450)
+
+    def assignnework(self):
+        x = str(datetime.datetime.now())
+        date_time_obj = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S.%f')
+        x_date = date_time_obj.date()
+        jid = self.jbid.get()
+        wkid= self.wkid.get()
+        descp = self.assdesp.get(1.0,END)
+        myid = self.myuid
+        status = "processing"
+        if descp == "" or jid == "" or wkid == "":
+            messagebox.showerror("Error!", "All fields are required")
+        else:
+            try:
+                self.cur.execute("select * from jobcard where jobid=%s", (jid))
+                row = self.cur.fetchone()
+                if row != None:
+                    messagebox.showerror("Error!", "Id Already assigned\nGive new job id")
+                else:
+                    self.cur.execute(
+                        "insert into jobcard (jobid, workdesc, assignby, assignto, assigndate, status) values('{0}','{1}','{2}','{3}','{4}','{5}')".format(jid,descp,myid,wkid,x_date,status))
+                    messagebox.showinfo("Inserstion Sucess", "Sucess, job is assigned")
+                    self.connection.commit()
+            except Exception as er:
+                print("Error!", f"{er}")
+
 
 #inventory ui
     def inventoryui(self):
