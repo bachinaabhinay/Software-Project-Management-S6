@@ -272,15 +272,17 @@ class stockkeeper:
         title3 = Label(self.frame3,text="Reports, needed Add action taken",font=("Oblique", 12), bg="white")
         title3.place(x=10,y=70)
         row = []
-        columns = ('report_id', 'rep_desc', 'rep_date')
+        columns = ('report_id', 'rep_desc', 'rep_by', 'rep_date')
         viewtree = ttk.Treeview(self.frame3, columns=columns, show='headings', height=10)
         viewtree.heading('report_id', text='Report Id')
         viewtree.heading('rep_desc', text='Report Descrption')
+        viewtree.heading('rep_by', text='Reported By')
         viewtree.heading('rep_date', text='Reported Date')
 
         viewtree.column("report_id", width=100, anchor=CENTER)
-        viewtree.column("rep_desc", width=550, anchor=CENTER)
+        viewtree.column("rep_desc", width=450, anchor=CENTER)
         viewtree.column('rep_date', width=120, anchor=CENTER)
+        viewtree.column('rep_by', width=100, anchor=CENTER)
         viewtree.pack(pady=30)
         try:
             self.cur.execute(
@@ -292,12 +294,53 @@ class stockkeeper:
         except Exception as er:
             print("Error!", f"{er}")
         for val in row:
-            viewtree.insert(parent='', index='end', text='', values=(val[0], val[1], val[2]))
+            viewtree.insert(parent='', index='end', text='', values=(val[0], val[2], val[1],val[3]))
         # style
         style = ttk.Style()
         style.theme_use("default")
         style.map("viewtree")
         viewtree.grid(padx=10,pady=110)
+        but_ref = Button(self.frame3,command=self.acttakrep,text='Refresh',font=('New times roman',14))
+        but_ref.place(x=10,y=340)
+
+        title = Label(self.frame3, text="Add Report Damage", font=("Oblique", 15), bg="white")
+        title.place(x=10, y=380)
+        l_repdesp = Label(self.frame3, text="Add Action", font=("Goudy old Style", 15), bg="white")
+        l_repdesp.place(x=10, y=420)
+
+        l_repid = Label(self.frame3, text="Enter Report Id", font=("Goudy old Style", 15), bg="white")
+        l_repid.place(x=10, y=420)
+        self.repid1 = Entry(self.frame3, font=("times new roman", 12), bg="white")
+        self.repid1.place(x=230, y=425)
+        l_label = Label(self.frame3, text="Enter Action taken", font=("Goudy old Style", 15), bg="white")
+        l_label.place(x=10, y=450)
+        self.actdesp = Text(self.frame3, font=("times new roman", 12), bg="white")
+        self.actdesp.place(x=10, y=490, width=450, height=270)
+
+        save = Button(self.frame3, command=self.addact, text="Save", bg="white", font=("times new roman", 13))
+        save.place(x=10, y=790)
+        cancel = Button(self.frame3, command=self.damagerepui, text="Cancel", bg="white",
+                        font=("times new roman", 13))
+        cancel.place(x=80, y=790)
+
+    def addact(self):
+        x = str(datetime.datetime.now())
+        date_time_obj = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S.%f')
+        x_date = date_time_obj.date()
+        repid = self.repid1.get()
+        acttake = self.actdesp.get(1.0,END)
+        myid = self.myuid
+        if repid == "":
+            messagebox.showerror('No Value', "Descrption, Report Id Fields Not to be Empty")
+        else:
+            try:
+                self.cur.execute("update damagereport set action=%s, act_taken_by=%s, act_date=%s where report_id=%s",(acttake, myid, x_date,repid))
+                self.connection.commit()
+                messagebox.showinfo('Sucess', "Report updation sucess")
+            except Exception as er:
+                print("Error!", f"{er}")
+
+
 
 
     def deletepastreport(self):
