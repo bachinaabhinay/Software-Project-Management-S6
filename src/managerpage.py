@@ -35,6 +35,8 @@ class manager:
         inventory_button.place(x=20, y=220, height=50, width=150)
         order_button = Button(self.frame2, command=self.orderui, text="Orders", activebackground="cyan", font=(40))
         order_button.place(x=20, y=290, height=50, width=150)
+        damagerep_but = Button(self.frame2, command=self.damagerepui, text="Reported Damage", activebackground="cyan", font=(40))
+        damagerep_but.place(x=20, y=360, height=50, width=150)
         change_password_button = Button(self.frame2, command=self.changemypasswordui, text="change my password",font=(25), bg="steel blue", fg="white")
         change_password_button.place(x=20, y=500, height=50, width=160)
 
@@ -491,7 +493,264 @@ class manager:
             except Exception as er:
                 print("Error!", f"{er}")
 
+    #damagereport ui
+    def damagerepui(self):
+        self.clearwindow()
+        title = Label(self.frame3, text="Damage Report", font=("Oblique", 20), bg="Gray35", fg="white")
+        title.place(x=10, y=2)
+        rep_damage_but = Button(self.frame3, command=self.reportDamui, text="Report Damage")
+        rep_damage_but.place(x=20, y=60, height=50, width=160)
+        Tak_act_but = Button(self.frame3, command=self.acttakrep, text="Take Action on Rep")
+        Tak_act_but.place(x=20, y=120, height=50, width=160)
+        pastdam_but = Button(self.frame3, command=self.pastDamrepui, text="Past Damage report ")
+        pastdam_but.place(x=20, y=180, height=50, width=160)
 
+    def reportDamui(self):
+        self.clearwindow()
+        title = Label(self.frame3, text="Report Damage", font=("Oblique", 20), bg="Gray35", fg="white")
+        title.place(x=10, y=2)
+        l_repid = Label(self.frame3, text="New Report Id", font=("Goudy old Style", 15), bg="Gray35", fg="white").place(x=10,y=50)
+        self.repid = Entry(self.frame3, font=("times new roman", 12), bg="white")
+        self.repid.place(x=210, y=55)
+
+        l_repdesp = Label(self.frame3, text="Description", font=("Goudy old Style", 15), bg="Gray35", fg="white").place(x=10, y=80)
+        self.repdesp = Text(self.frame3, font=("times new roman", 12), bg="white")
+        self.repdesp.place(x=10, y=115, width=450,height=270)
+
+        save = Button(self.frame3, command=self.reportDam, text="Save", bg="white", font=("times new roman", 13))
+        save.place(x=10, y=410)
+        cancel = Button(self.frame3, command=self.clearwindow, text="Cancel", bg="white",
+                        font=("times new roman", 13))
+        cancel.place(x=80, y=410)
+
+    def reportDam(self):
+        x = str(datetime.datetime.now())
+        date_time_obj = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S.%f')
+        x_date = date_time_obj.date()
+        self.repdesp.get(1.0, END)
+        if self.repdesp.get(1.0, END) == "" or self.repid.get() == "":
+            messagebox.showerror("Error!", "All fields are required")
+        else:
+            try:
+                self.cur.execute("select * from damagereport where report_id=%s", (self.repid.get()))
+                row = self.cur.fetchone()
+                if row != None:
+                    messagebox.showerror("Error!", "Id Already assigned\nGive new Report id")
+                else:
+                    self.cur.execute(
+                        "INSERT INTO DAMAGEREPORT (REPORT_ID, REP_BY, REP_DESC,REP_DATE) VALUES(%s,%s,%s,%s)",
+                        (self.repid.get(), self.myuid, self.repdesp.get(1.0, END), x_date))
+                    messagebox.showinfo("Inserstion Sucess", "Sucess, Damage is reported")
+                    self.connection.commit()
+            except Exception as er:
+                print("Error!", f"{er}")
+
+    def pastDamrepui(self):
+        self.clearwindow()
+        title = Label(self.frame3, text="Past Reported Damages", font=("Oblique", 20), bg="Gray35", fg="white")
+        title.place(x=10, y=2)
+        view_past_report = Button(self.frame3, command=self.pastrepui, text="View Past Reported",
+                                  font=("times new roman", 14))
+        view_past_report.place(x=20, y=80)
+        edit_past_report = Button(self.frame3, command=self.updatepastrepui, text="Edit past Report",
+                                  font=("times new roman", 14))
+        edit_past_report.place(x=20, y=130)
+        delete_past_report = Button(self.frame3, command=self.deletepastreport, text="delete Report",
+                                    font=("times new roman", 14))
+        delete_past_report.place(x=20, y=180)
+
+    def pastrepui(self):
+        self.clearwindow()
+        row = []
+        columns = ('report_id', 'rep_desc', 'rep_date')
+        viewtree = ttk.Treeview(self.frame3, columns=columns, show='headings', height=10)
+        viewtree.heading('report_id', text='Report Id')
+        viewtree.heading('rep_desc', text='Report Descrption')
+        viewtree.heading('rep_date', text='Reported Date')
+
+        viewtree.column("report_id", width=100, anchor=CENTER)
+        viewtree.column("rep_desc", width=550, anchor=CENTER)
+        viewtree.column('rep_date', width=120, anchor=CENTER)
+        viewtree.pack(pady=70)
+        try:
+            self.cur.execute(
+                "select report_id, rep_desc, rep_date from damagereport where rep_by='{}' order by rep_date ASC".format(
+                    self.myuid))
+            row = self.cur.fetchall()
+            if row == []:
+                messagebox.showinfo("No Report", "No Damages Reported")
+        except Exception as er:
+            print("Error!", f"{er}")
+        for val in row:
+            viewtree.insert(parent='', index='end', text='', values=(val[0], val[1], val[2]))
+        # style
+        style = ttk.Style()
+        style.theme_use("default")
+        style.map("viewtree")
+
+
+    def updatepastrepui(self):
+        self.clearwindow()
+        title = Label(self.frame3, text="Edit Past damage Reported", font=("Oblique", 20), bg="white")
+        title.place(x=10, y=2)
+        lb_user = Label(self.frame3, text="Enter report Id", font=("Goudy old Style", 15), bg="white").place(x=10, y=70)
+        self.drepid = Entry(self.frame3, font=("times new roman", 12), bg="white")
+        self.drepid.place(x=170, y=75)
+        drepidbu = Button(self.frame3, command=self.checkDamid, text="Check")
+        drepidbu.place(x=370, y=70)
+
+    def checkDamid(self):
+        if self.drepid.get() == '':
+            messagebox.showerror('No Value', "Report Id Field Not Empty")
+        else:
+            try:
+                messagebox.showinfo('ID Present', "Given Id present click ok to update description")
+                self.cur.execute("select report_id, rep_by from damagereport where report_id=%s and rep_by=%s",
+                                 (self.drepid.get(), self.myuid))
+                row = self.cur.fetchall()
+                if row == None:
+                    messagebox.showinfo("No Damage Reported", "No Damage reported for Given id")
+                else:
+                    l_repdesp = Label(self.frame3, text="Update Description", font=("Goudy old Style", 15),
+                                      bg="white").place(x=10, y=115)
+                    self.repdesp = Text(self.frame3, font=("times new roman", 12), bg="white")
+                    self.repdesp.place(x=10, y=150, width=450, height=270)
+                    upbutton = Button(self.frame3, text="Save", command=self.upd_rep).place(x=10, y=450)
+                    clearbut = Button(self.frame3, text='Clear Field', command=self.repdesp.delete(1.0, END)).place(
+                        x=70, y=450)
+            except Exception as er:
+                print("Error!", f"{er}")
+
+    def upd_rep(self):
+        x = str(datetime.datetime.now())
+        date_time_obj = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S.%f')
+        x_date = date_time_obj.date()
+
+        textval = self.repdesp.get(1.0,END)
+        drepid = self.drepid.get()
+        myid = self.myuid
+        if textval==None:
+            messagebox.showerror('No Value', "Descrption Field Not to be Empty")
+        else:
+            try:
+                self.cur.execute("update damagereport set rep_desc=%s, rep_date=%s where report_id=%s and rep_by=%s", (textval,x_date,drepid,myid))
+                self.connection.commit()
+                messagebox.showinfo('Sucess', "Report updation sucess")
+            except Exception as er:
+                print("Error!", f"{er}")
+
+    def acttakrep(self):
+        self.clearwindow()
+        title = Label(self.frame3, text="Take action", font=("Oblique", 20), bg="Gray35", fg="white")
+        title.place(x=10, y=2)
+        title2 = Label(self.frame3,text="Add action taken for incomplete damages",font=("Oblique", 12), bg="Gray35", fg="white")
+        title2.place(x=10,y=40)
+        title3 = Label(self.frame3,text="Reports, needed Add action taken",font=("Oblique", 12), bg="Gray35", fg="white")
+        title3.place(x=10,y=70)
+        row = []
+        columns = ('report_id', 'rep_desc', 'rep_by', 'rep_date')
+        viewtree = ttk.Treeview(self.frame3, columns=columns, show='headings', height=10)
+        viewtree.heading('report_id', text='Report Id')
+        viewtree.heading('rep_desc', text='Report Descrption')
+        viewtree.heading('rep_by', text='Reported By')
+        viewtree.heading('rep_date', text='Reported Date')
+
+        viewtree.column("report_id", width=100, anchor=CENTER)
+        viewtree.column("rep_desc", width=450, anchor=CENTER)
+        viewtree.column('rep_date', width=120, anchor=CENTER)
+        viewtree.column('rep_by', width=100, anchor=CENTER)
+        viewtree.pack(pady=30)
+        try:
+            self.cur.execute(
+                "select * from damagereport where act_taken_by is null Order by report_id ASC".format(
+                    self.myuid))
+            row = self.cur.fetchall()
+            if row == []:
+                messagebox.showinfo("No Report", "No Damages Reported")
+        except Exception as er:
+            print("Error!", f"{er}")
+        for val in row:
+            viewtree.insert(parent='', index='end', text='', values=(val[0], val[2], val[1],val[3]))
+        # style
+        style = ttk.Style()
+        style.theme_use("default")
+        style.map("viewtree")
+        viewtree.grid(padx=10,pady=110)
+        but_ref = Button(self.frame3,command=self.acttakrep,text='Refresh',font=('New times roman',14))
+        but_ref.place(x=10,y=340)
+
+        title = Label(self.frame3, text="Add Report Damage", font=("Oblique", 15), bg="Gray35", fg="white")
+        title.place(x=10, y=380)
+        l_repdesp = Label(self.frame3, text="Add Action", font=("Goudy old Style", 15), bg="Gray35", fg="white")
+        l_repdesp.place(x=10, y=420)
+
+        l_repid = Label(self.frame3, text="Enter Report Id", font=("Goudy old Style", 15), bg="Gray35", fg="white")
+        l_repid.place(x=10, y=420)
+        self.repid1 = Entry(self.frame3, font=("times new roman", 12), bg="white")
+        self.repid1.place(x=230, y=425)
+        l_label = Label(self.frame3, text="Enter Action taken", font=("Goudy old Style", 15), bg="Gray35", fg="white")
+        l_label.place(x=10, y=450)
+        self.actdesp = Text(self.frame3, font=("times new roman", 12), bg="white")
+        self.actdesp.place(x=10, y=490, width=200, height=50)
+
+        save = Button(self.frame3, command=self.addact, text="Save", bg="white", font=("times new roman", 13))
+        save.place(x=30, y=550)
+        cancel = Button(self.frame3, command=self.damagerepui, text="Cancel", bg="white",
+                        font=("times new roman", 13))
+        cancel.place(x=90, y=550)
+
+    def addact(self):
+        x = str(datetime.datetime.now())
+        date_time_obj = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S.%f')
+        x_date = date_time_obj.date()
+        repid = self.repid1.get()
+        acttake = self.actdesp.get(1.0,END)
+        myid = self.myuid
+        if repid == "":
+            messagebox.showerror('No Value', "Descrption, Report Id Fields Not to be Empty")
+        else:
+            try:
+                self.cur.execute("update damagereport set action=%s, act_taken_by=%s, act_date=%s where report_id=%s",(acttake, myid, x_date,repid))
+                self.connection.commit()
+                messagebox.showinfo('Sucess', "Report updation sucess")
+            except Exception as er:
+                print("Error!", f"{er}")
+
+
+
+
+    def deletepastreport(self):
+        self.clearwindow()
+        title = Label(self.frame3, text="delete damage Reported", font=("Oblique", 20), bg="Gray35", fg="white")
+        title.place(x=10, y=2)
+        lb_user = Label(self.frame3, text="Enter report Id", font=("Goudy old Style", 15), bg="Gray35", fg="white").place(x=10, y=70)
+        self.drepid = Entry(self.frame3, font=("times new roman", 12), bg="white")
+        self.drepid.place(x=170, y=75)
+        drepidbu = Button(self.frame3, command=self.delcheckdam, text="Check")
+        drepidbu.place(x=370, y=70)
+
+    def delcheckdam(self):
+        if self.drepid.get() == '':
+            messagebox.showerror('No Value', "Report Id Field Not Empty")
+        else:
+            try:
+                self.cur.execute("select report_id, rep_by from damagereport where report_id=%s and rep_by=%s",
+                                 (self.drepid.get(), self.myuid))
+                row = self.cur.fetchall()
+
+                if row == []:
+                    messagebox.showinfo("No Damage Reported", "No Damage reported for Given id")
+                else:
+                    messagebox.showinfo('ID Present', "Given Id present click ok to delete description report")
+                    try:
+                        self.cur.execute("Delete from damagereport where report_id=%s and rep_by=%s",
+                                         (self.drepid.get(), self.myuid))
+                        self.connection.commit()
+                        messagebox.showinfo('Deletion Sucess', 'Reported Deleted sucess')
+                    except Exception as er:
+                        print("Error!", f"{er}")
+            except Exception as er:
+                print("Error!", f"{er}")
 
     def checkuserid(self):
         uid=StringVar()
@@ -591,4 +850,4 @@ def main(uid,passd):
     obj = manager(root,uid,passd)
     root.mainloop()
 
-main('wok001',123456)
+main('man001',123456)
