@@ -33,7 +33,7 @@ class login:
         self.txt_user = Entry(self.frame_login, font=("times new roman", 12), bg="white")
         self.txt_user.place(x=45, y=125)
         lb_user = Label(self.frame_login, text="Password", font=("Goudy old Style", 15), bg="white").place(x=40, y=155)
-        self.txt_pass = Entry(self.frame_login, font=("times new roman", 12), bg="white")
+        self.txt_pass = Entry(self.frame_login, font=("times new roman", 12), bg="white", show=('*')
         self.txt_pass.place(x=45, y=190)
         forget_button = Button(self.frame_login, command=self.resetpass, text="Forget Password?", bg="white",
                                fg="#0000CD", bd=0,
